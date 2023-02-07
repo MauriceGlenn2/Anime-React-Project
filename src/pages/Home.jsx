@@ -7,26 +7,25 @@ import axios from 'axios';
 const Home = () => {
 
   const [search, setSearch] = useState([])
-  const [searchTitle, setSearchTitle] = useState(search)
-  const [loading, setLoading] = useState();
+  const [searchTitle, setSearchTitle] = useState('')
+  const [loading, setLoading] = useState(true);
 
   function onSearch() {
     getResults(searchTitle)
   }
 
   async function getResults(search) {
-    setLoading(false)
+    setLoading(true)
     const { data } = await axios.get(`https://api.jikan.moe/v4/anime?q=${search}&limit=6`)
     setSearch(data)
-    if (data && data.length > 0) {
-      setLoading(false)
-      setSearchTitle(data)
-    }
-
-    console.log(data, loading)
-   
-
+    setLoading(false)
+    console.log(data)
   }
+
+
+
+
+
 
   useEffect(() => {
     getResults()
@@ -41,33 +40,39 @@ const Home = () => {
           <p className="title__header--para">Gain information on your favortie anime with <b><strong className="purple">ANIME FINDER</strong></b></p>
         </div>
         <div className="input__wrapper">
-          <input className="input__search" type="text" value={searchTitle} placeholder="Search Anime By Name"
+          <input className="input__search" type="text" placeholder="Search Anime By Name"
             onChange={(event) => setSearchTitle(event.target.value)}></input>
           <button className="search__btn" onClick={() => onSearch()}>Find</button>
         </div>
       </div>
 
-      { !loading && search.length >0 ?
-        (search.map((item) =>
-          <div>
-            <p className="movie__discription">Title: {item.mal_id}</p>
-            <img className='null__results--img'>{item.images.jpg.image_url}</img></div>))
-           :
-        (<div>Nothing</div>)
-      }
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        search.data.length === 0 ? (<div className='null__results'>
+          <img className='null__results--img' src={pngegg} alt="" />
+          <p className="title__header--para">Start Your Search</p>
+        </div >) : (
+          <ul>
+            {search.data.map((result, index) => (
+              <li key={index}>{result.title}</li>
+            ))}
+          </ul>
+        )
+      )}
     </>
   )
 }
 
 export default Home;
 
-{/* // //  <div className='null__results'>
-//           <img className='null__results--img' src={pngegg} alt="" />
-//           <p className="title__header--para">Start Your Search</p>
-//           </div > 
+{/* // //  (<div className='null__results'>
+           <img className='null__results--img' src={pngegg} alt="" />
+          <p className="title__header--para">Start Your Search</p>
+           </div > )
 
 
-{search.map((post) => 
+{search.map((post) =>
           (
         <div className="row" >
           <div id="results__container">
@@ -97,7 +102,7 @@ export default Home;
           <div className='null__results'>
             <img className='null__results--img' src={pngegg} alt="" />
             <p className="title__header--para">Start Your Search</p>
-          </div > 
+          </div >
         )
           :
 */}
