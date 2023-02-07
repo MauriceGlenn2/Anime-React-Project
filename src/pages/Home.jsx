@@ -18,8 +18,13 @@ const Home = () => {
     setLoading(false)
     const { data } = await axios.get(`https://api.jikan.moe/v4/anime?q=${search}&limit=6`)
     setSearch(data)
-    console.log(data)
-    setLoading(true)
+    if (data && data.length > 0) {
+      setLoading(false)
+      setSearchTitle(data)
+    }
+
+    console.log(data, loading)
+   
 
   }
 
@@ -42,23 +47,14 @@ const Home = () => {
         </div>
       </div>
 
-      {
-          (new Array(6).fill(6).map((element, index) => (
-            <div className="row" key={index}>
-              <div id="results__container">
-                <div className="results__wrapper">
-                  <div className="results">
-                    <div className="results__info">
-                      <p className="movie__discription">Title:{title}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )))
-
-          }
-
+      { !loading && search.length >0 ?
+        (search.map((item) =>
+          <div>
+            <p className="movie__discription">Title: {item.mal_id}</p>
+            <img className='null__results--img'>{item.images.jpg.image_url}</img></div>))
+           :
+        (<div>Nothing</div>)
+      }
     </>
   )
 }
