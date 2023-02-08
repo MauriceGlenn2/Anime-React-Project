@@ -53,11 +53,22 @@ const Home = () => {
           <img className='null__results--img' src={pngegg} alt="" />
           <p className="title__header--para">Start Your Search</p>
         </div >) : (
-          <ul>
+          <>
             {search.data.map((result, index) => (
-              <li key={index}>{result.title}</li>
+              <div className="row" >
+                <div id="results__container">
+                  <div className="results__wrapper">
+                    <div className="results">
+                      <div className="results__info">
+                        <img className="anime__img" src={result.images.webp.image_url}/>
+                        <p className="movie__discription">{result.title}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
-          </ul>
+          </>
         )
       )}
     </>

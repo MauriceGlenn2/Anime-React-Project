@@ -131,8 +131,15 @@ Results
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  position: relative;
+  /* //position: relative; */
 }
+.anime__img {
+  border: none;
+  width: auto;
+  height: auto;
+  
+}
+
 
 .results {
   width: 30%;
