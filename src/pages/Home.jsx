@@ -53,11 +53,10 @@ const Home = () => {
           <img className='null__results--img' src={pngegg} alt="" />
           <p className="title__header--para">Start Your Search</p>
         </div >) : (
-          <>
+              <><div className="row" >
             {search.data.map((result, index) => (
-              <div className="row" >
                 <div id="results__container">
-                  <div className="results__wrapper">
+                <div className="results__wrapper three-elements-per-row">
                     <div className="results">
                       <div className="results__info">
                         <img className="anime__img" src={result.images.webp.image_url}/>
@@ -66,8 +65,9 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              
             ))}
+              </div>
           </>
         )
       )}
@@ -77,43 +77,3 @@ const Home = () => {
 
 export default Home;
 
-{/* // //  (<div className='null__results'>
-           <img className='null__results--img' src={pngegg} alt="" />
-          <p className="title__header--para">Start Your Search</p>
-           </div > )
-
-
-{search.map((post) =>
-          (
-        <div className="row" >
-          <div id="results__container">
-            <div className="results__wrapper">
-              <div className="results">
-                <div className="results__info">
-                  <p className="movie__discription">{search.id}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>)
-
-  new Array(6).fill(0).map((element, index) => (
-            <div className="post" key={index}>
-              <div className="post__title">
-                <div className="post__title--skeleton"></div>
-              </div>
-              <div className="post__body">
-                <p className="post__body--skeleton"></p>
-              </div>
-            </div>
-          ))
-
-
-             loading ? (
-          <div className='null__results'>
-            <img className='null__results--img' src={pngegg} alt="" />
-            <p className="title__header--para">Start Your Search</p>
-          </div >
-        )
-          :
-*/}
